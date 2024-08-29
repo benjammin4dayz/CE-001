@@ -1,3 +1,5 @@
+import { download } from './util.js';
+
 const iv = new Uint8Array([
   108, 92, 127, 59, 208, 103, 42, 6, 31, 111, 209, 76,
 ]); // 96 bytes
@@ -62,9 +64,9 @@ export async function encrypt(plaintext) {
 }
 
 export async function decrypt(keyURL, binURL) {
-  const cipherText = await fetch(binURL).then(res => res.arrayBuffer());
   const key = await fetch(keyURL).then(res => res.json());
-  const decrypted = await decryptText(cipherText, key);
+  const ciphertext = await fetch(binURL).then(res => res.arrayBuffer());
+  const decrypted = await decryptText(ciphertext, key);
 
   let data;
 
